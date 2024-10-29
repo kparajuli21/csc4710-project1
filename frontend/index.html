@@ -4,38 +4,74 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheet.css">
-  <title>DB Project 1 new</title>
+  <title>User Database Interface</title>
 </head>
 <body>
   <main>
-      <label>Name:</label>
-      <input type="text" id="name-input">
-      <button id="add-name-btn">Add Name</button>
- 
-     <br><br><br>
-     <div> 
-        <input placeholder="search by name" id="search-input">
-        <button id="search-btn">Search</button>
-     </div>
+    <section id="registration-signin">
+      <h2>User Registration</h2>
+      <label>Username:</label>
+      <input type="text" id="register-username">
+      <label>Password:</label>
+      <input type="password" id="register-password">
+      <label>Age:</label>
+      <input type="number" id="register-age">
+      <label>Salary:</label>
+      <input type="number" id="register-salary">
+      <button id="register-btn">Register</button>
 
-
-     <table id="table">
-         <thead>
-             <th>Id</th>
-             <th>Name</th>
-             <th>Date Added</th>
-             <th>Delete</th>
-             <th>Edit</th>  
-         </thead>
-         <tbody></tbody>
-     </table>
-
-     <section hidden id="update-row">
-         <label>Name:</label>
-         <input type="text" id="update-name-input">
-         <button id="update-row-btn" value="">Update</button>
+      <h2>User Sign-In</h2>
+      <label>Username:</label>
+      <input type="text" id="signin-username">
+      <label>Password:</label>
+      <input type="password" id="signin-password">
+      <button id="signin-btn">Sign In</button>
     </section>
-</main>
-<script src="index.js"></script>
+
+    <section id="search-functions">
+      <h2>Search Users</h2>
+      <div>
+        <input placeholder="First Name" id="search-firstname">
+        <input placeholder="Last Name" id="search-lastname">
+        <button id="search-name-btn">Search by Name</button>
+      </div>
+      <div>
+        <input placeholder="User ID" id="search-userid">
+        <button id="search-userid-btn">Search by User ID</button>
+      </div>
+      <div>
+        <input placeholder="Min Salary" id="search-min-salary">
+        <input placeholder="Max Salary" id="search-max-salary">
+        <button id="search-salary-btn">Search by Salary Range</button>
+      </div>
+      <div>
+        <input placeholder="Min Age" id="search-min-age">
+        <input placeholder="Max Age" id="search-max-age">
+        <button id="search-age-btn">Search by Age Range</button>
+      </div>
+      <div>
+        <input placeholder="Enter User ID" id="search-after-user">
+        <button id="search-after-btn">Search Registered After User</button>
+      </div>
+      <button id="search-never-signedin-btn">Search Users Never Signed In</button>
+      <button id="search-same-day-btn">Search Registered on Same Day</button>
+      <button id="search-today-btn">Search Registered Today</button>
+    </section>
+
+    <table id="user-table">
+      <thead>
+        <tr>
+          <th>UserID</th>
+          <th>Username</th>
+          <th>Age</th>
+          <th>Salary</th>
+          <th>Registration Date</th>
+          <th>Last Sign-In</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script src="index.js"></script>
 </body>
 </html>
