@@ -1,0 +1,27 @@
+change directory: cd C:\xampp\htdocs\csc4710-project1
+
+
+
+rename dotenv file: ren 'FILE NAME AND EXTENSION HERE' .env
+		    ren .env.txt .env
+
+
+npm init -y
+npm install express mysql cors nodemon dotenv
+npm start
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
