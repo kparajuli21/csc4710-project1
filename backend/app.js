@@ -20,12 +20,8 @@ app.post('/register', (request, response) => {
 });
 
 app.get('/getAll', (request, response) => {
-
     const db = dbService.getDbServiceInstance();
-
-
-    const result = db.getAllData(); // call a DB function
-
+    const result = db.getAllData();
     result
         .then(data => response.json({ data: data }))
         .catch(err => console.log(err));
@@ -49,7 +45,64 @@ app.get('/searchByName/:firstname/:lastname', (request, response) => {
           .catch(err => response.status(500).json({ error: err.message }));
 });
 
-// Additional search functionalities...
+//search by userid
+app.get('/searchByID/:userid', (request, response) => {
+    const { userid } = request.params;
+    const db = dbService.getDbServiceInstance();
+    const result = db.searchByID(userid);
+    result.then(data => response.json({ data: data }))
+        .catch(err => response.status(500).json({ error: err.message }));
+});
+
+  //search all users whose salary is between X and Y
+app.get('/searchBySalary/:x/:y', (request, response) => {
+    const { x, y } = request.params;
+    const db = dbService.getDbServiceInstance();
+    const result = db.searchBySalary(parseInt(x), parseInt(y));
+    result.then(data => response.json({ data: data }))
+        .catch(err => response.status(500).json({ error: err.message }));
+});
+
+//Search all users whose ages are between X and Y.
+app.get('/searchByAge/:x/:y', (request, response) => {
+    const { x, y } = request.params;
+    const db = dbService.getDbServiceInstance();
+    const result = db.searchByAge(parseInt(x), parseInt(y));
+    result.then(data => response.json({ data: data }))
+        .catch(err => response.status(500).json({ error: err.message }));
+});
+//Search users who registered after john registered, where john is the userid.
+app.get('/searchByUser/:userid', (request, response) => {
+    const {userid} = request.params;
+    const db = dbService.getDbServiceInstance();
+    const result = db.searchByUser(userid);
+    result.then(data => response.json({ data: data }))
+        .catch(err => response.status(500).json({ error: err.message }));
+});
+//search users who never signed in.
+app.get('/neverSignedIn', (request, response) => {
+    const db = dbService.getDbServiceInstance();
+    const result = db.searchNeverSignedIn(userid);
+    result.then(data => response.json({ data: data }))
+        .catch(err => response.status(500).json({ error: err.message }));
+});
+
+//Search users who registered on the same day that john registered.
+app.get('/searchSameDay/:userid', (request, response) => {
+    const { userid } = request.params;
+    const db = dbService.getDbServiceInstance();
+    const result = db.searchSameDay(userid);
+    result.then(data => response.json({ data: data }))
+        .catch(err => response.status(500).json({ error: err.message }));
+});
+
+//Return the users who registered today;
+app.get('/searchToday', (request, response) => {
+    const db = dbService.getDbServiceInstance();
+    const result = db.searchToday(userid);
+    result.then(data => response.json({ data: data }))
+        .catch(err => response.status(500).json({ error: err.message }));
+});
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
