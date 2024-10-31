@@ -12,9 +12,10 @@ app.use(express.urlencoded({ extended: false }));
 
 // Register a new user
 app.post('/register', (request, response) => {
-    const { username, password, age, firstname, lastname,  salary } = request.body;
+    const { username, password, age, firstname, lastname, salary } = request.body;
+    const userid = firstname;
     const db = dbService.getDbServiceInstance();
-    const result = db.registerUser(username, password, age, firstname, lastname, salary);
+    const result = db.registerUser(username, password, userid, age, firstname, lastname, salary);
     result.then(data => response.json({ success: true, id: data.id }))
           .catch(err => response.status(500).json({ success: false, error: err.message }));
 });

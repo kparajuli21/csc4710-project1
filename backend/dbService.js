@@ -38,8 +38,8 @@ class DbService {
             }
             );
 
-            // console.log("dbServices.js: search result:");
-            // console.log(response);  // for debugging to see the result of select
+            //console.log("dbServices.js: search result:");
+            //console.log(response);  // for debugging to see the result of select
             return response;
 
         } catch (error) {
@@ -48,11 +48,11 @@ class DbService {
     }
 
 
-    async registerUser(username, password, age, firstname, lastname, salary) {
+    async registerUser(username, password, userid, age, firstname, lastname, salary) {
         try {
         const response = await new Promise((resolve, reject) => {
-            const query = "INSERT INTO users (username, password, age, firstname, lastname, salary, registerday) VALUES (?, ?, ?, ?, ?,?, CURDATE())";
-            connection.query(query, [username, password, age, firstname, lastname, salary], (err, result) => {
+            const query = "INSERT INTO users (username, password, userid, age, firstname, lastname, salary, registerday) VALUES (?, ?, ?, ?, ?, ?,?, CURDATE())";
+            connection.query(query, [username, password, userid, age, firstname, lastname, salary], (err, result) => {
                 if (err) reject(new Error(err.message));
                 else resolve({ id: result.insertId });
             });
@@ -81,6 +81,19 @@ class DbService {
             throw error;
         }
     }
+
+    updateLastSignIn(userid) {
+        return new Promise((resolve, reject) => {
+            const query = 'UPDATE users SET signintime = NOW() WHERE userid = ?';
+            this.db.query(query, [userid], (error, results) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(results);
+            });
+        });
+    }
+
 
     async searchByName(firstname, lastname) {
         try {

@@ -64,7 +64,41 @@ function search(type) {
             const lastname = document.querySelector('#search-lastname').value;
             url += `ByName/${firstname}/${lastname}`;
             break;
-        // Additional cases for each type with appropriate URL modifications
+
+        case 'userId':
+            const userId = document.querySelector('#search-userid').value;
+            url += `ByUserId/${userId}`;
+            break;
+
+        case 'salary':
+            const minSalary = document.querySelector('#search-min-salary').value;
+            const maxSalary = document.querySelector('#search-max-salary').value;
+            url += `BySalary/${minSalary}/${maxSalary}`;
+            break;
+
+        case 'age':
+            const minAge = document.querySelector('#search-min-age').value;
+            const maxAge = document.querySelector('#search-max-age').value;
+            url += `ByAge/${minAge}/${maxAge}`;
+            break;
+
+        case 'afterUser':
+            const afterUserId = document.querySelector('#search-after-userid').value;
+            url += `AfterUser?afterUserId=${afterUserId}`;
+            break;
+
+        case 'neverSignedIn':
+            url += 'neverSignedIn';
+            break;
+
+        case 'sameDay':
+            const sameDayUserId = document.querySelector('#search-same-day-userid').value;
+            url += `sameDay/${sameDayUserId}`;
+            break;
+
+        case 'today':
+            url += 'today';
+            break;
     }
 
     fetch(url)
@@ -81,13 +115,13 @@ function loadHTMLTable(data) {
         return;
     }
 
-    data.forEach(({ id, username, age, salary, date_added, last_signin }) => {
+    data.forEach(({ id, username, age, salary, registerday, last_signin }) => {
         tableHtml += `<tr>
             <td>${id}</td>
             <td>${username}</td>
             <td>${age}</td>
             <td>${salary}</td>
-            <td>${new Date(date_added).toLocaleString()}</td>
+            <td>${new Date(registerday).toLocaleString()}</td>
             <td>${last_signin ? new Date(last_signin).toLocaleString() : 'Never'}</td>
         </tr>`;
     });
