@@ -37,70 +37,80 @@ app.post('/signin', (request, response) => {
 });
 
 // Search by name
-app.get('/searchByName/:firstname/:lastname', (request, response) => {
-    const { firstname, lastname } = request.params;
+app.get('/search/ByName', (request, response) => {
+    const { firstname, lastname } = request.query;
     const db = dbService.getDbServiceInstance();
     const result = db.searchByName(firstname, lastname);
-    result.then(data => response.json({ data: data }))
-          .catch(err => response.status(500).json({ error: err.message }));
+    result
+        .then(data => response.json({ data: data }))
+        .catch(err => response.status(500).json({ error: err.message }));
 });
 
 //search by userid
-app.get('/searchByID/:userid', (request, response) => {
-    const { userid } = request.params;
+app.get('/search/ByUserId', (request, response) => {
+    const { userId } = request.query; // Changed to use query params
     const db = dbService.getDbServiceInstance();
-    const result = db.searchByID(userid);
-    result.then(data => response.json({ data: data }))
+    const result = db.searchByID(userId);
+    result
+        .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
 });
 
   //search all users whose salary is between X and Y
-app.get('/searchBySalary/:x/:y', (request, response) => {
-    const { x, y } = request.params;
+app.get('/search/BySalary', (request, response) => {
+    const { minSalary, maxSalary } = request.query; // Changed to use query params
     const db = dbService.getDbServiceInstance();
-    const result = db.searchBySalary(parseInt(x), parseInt(y));
-    result.then(data => response.json({ data: data }))
+    const result = db.searchBySalary(parseInt(minSalary), parseInt(maxSalary));
+    result
+        .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
 });
 
 //Search all users whose ages are between X and Y.
-app.get('/searchByAge/:x/:y', (request, response) => {
-    const { x, y } = request.params;
+app.get('/search/ByAge', (request, response) => {
+    const { minAge, maxAge } = request.query; // Changed to use query params
     const db = dbService.getDbServiceInstance();
-    const result = db.searchByAge(parseInt(x), parseInt(y));
-    result.then(data => response.json({ data: data }))
+    const result = db.searchByAge(parseInt(minAge), parseInt(maxAge));
+    result
+        .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
 });
+
 //Search users who registered after john registered, where john is the userid.
-app.get('/searchByUser/:userid', (request, response) => {
-    const {userid} = request.params;
+app.get('/search/AfterUser', (request, response) => {
+    const { afterUserId } = request.query; // Changed to use query params
     const db = dbService.getDbServiceInstance();
-    const result = db.searchByUser(userid);
-    result.then(data => response.json({ data: data }))
+    const result = db.searchByUser(afterUserId);
+    result
+        .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
 });
+
 //search users who never signed in.
-app.get('/neverSignedIn', (request, response) => {
+app.get('/search/neverSignedIn', (request, response) => {
     const db = dbService.getDbServiceInstance();
-    const result = db.searchNeverSignedIn(userid);
-    result.then(data => response.json({ data: data }))
+    const result = db.searchNeverSignedIn(); // No params needed
+    result
+        .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
 });
 
 //Search users who registered on the same day that john registered.
-app.get('/searchSameDay/:userid', (request, response) => {
-    const { userid } = request.params;
+app.get('/search/sameDay', (request, response) => {
+    const { userId } = request.query; // Changed to use query params
     const db = dbService.getDbServiceInstance();
-    const result = db.searchSameDay(userid);
-    result.then(data => response.json({ data: data }))
+    const result = db.searchSameDay(userId);
+    result
+        .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
 });
 
 //Return the users who registered today;
-app.get('/searchToday', (request, response) => {
+app.get('/search/today', (request, response) => {
     const db = dbService.getDbServiceInstance();
-    const result = db.searchToday(userid);
-    result.then(data => response.json({ data: data }))
+    const result = db.searchToday(); // No params needed
+    result
+        .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
 });
 

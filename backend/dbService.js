@@ -131,7 +131,7 @@ class DbService {
         }
     }
     //Search all users whose ages are between X and Y.
-    async searchBySalary(x, y) {
+    async searchByAge(x, y) {
         try {
             const response = await new Promise((resolve, reject) => {
                 const query = "SELECT * FROM users WHERE age > ? AND age < ?";
