@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const registerBtn = document.querySelector('#register-btn');
 registerBtn.addEventListener('click', () => {
+    const firstname = document.querySelector('#register-firstname').value;
+    const lastname = document.querySelector('#register-lastname').value;
     const username = document.querySelector('#register-username').value;
     const password = document.querySelector('#register-password').value;
     const age = document.querySelector('#register-age').value;
@@ -14,7 +16,7 @@ registerBtn.addEventListener('click', () => {
     fetch('http://localhost:5050/register', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({ username, password, age, salary })
+        body: JSON.stringify({ firstname, lastname, username, password, age, salary })
     })
     .then(response => response.json())
     .then(data => alert('User Registered!'));
@@ -60,7 +62,7 @@ function search(type) {
         case 'name':
             const firstname = document.querySelector('#search-firstname').value;
             const lastname = document.querySelector('#search-lastname').value;
-            url += `ByName?firstname=${firstname}&lastname=${lastname}`;
+            url += `ByName/${firstname}/${lastname}`;
             break;
         // Additional cases for each type with appropriate URL modifications
     }

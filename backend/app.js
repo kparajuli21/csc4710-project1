@@ -38,7 +38,7 @@ app.post('/signin', (request, response) => {
 
 // Search by name
 app.get('/search/ByName/:firstname/:lastname', (request, response) => {
-    const { firstname, lastname } = request.query;
+    const { firstname, lastname } = request.params;
     const db = dbService.getDbServiceInstance();
     const result = db.searchByName(firstname, lastname);
     result
@@ -48,7 +48,7 @@ app.get('/search/ByName/:firstname/:lastname', (request, response) => {
 
 //search by userid
 app.get('/search/ByUserId/:userId', (request, response) => {
-    const { userId } = request.query; 
+    const { userId } = request.params; 
     const db = dbService.getDbServiceInstance();
     const result = db.searchByID(userId);
     result
@@ -58,7 +58,7 @@ app.get('/search/ByUserId/:userId', (request, response) => {
 
   //search all users whose salary is between X and Y
 app.get('/search/BySalary/:minSalary/:maxSalary', (request, response) => {
-    const { minSalary, maxSalary } = request.query; 
+    const { minSalary, maxSalary } = request.params; 
     const db = dbService.getDbServiceInstance();
     const result = db.searchBySalary(parseInt(minSalary), parseInt(maxSalary));
     result
@@ -68,7 +68,7 @@ app.get('/search/BySalary/:minSalary/:maxSalary', (request, response) => {
 
 //Search all users whose ages are between X and Y.
 app.get('/search/ByAge/:minAge/:maxAge', (request, response) => {
-    const { minAge, maxAge } = request.query; 
+    const { minAge, maxAge } = request.params; 
     const db = dbService.getDbServiceInstance();
     const result = db.searchByAge(parseInt(minAge), parseInt(maxAge));
     result
@@ -78,7 +78,7 @@ app.get('/search/ByAge/:minAge/:maxAge', (request, response) => {
 
 //Search users who registered after john registered, where john is the userid.
 app.get('/search/AfterUser', (request, response) => {
-    const { afterUserId } = request.query; 
+    const { afterUserId } = request.params; 
     const db = dbService.getDbServiceInstance();
     const result = db.searchAfterUser(afterUserId);
     result
@@ -97,7 +97,7 @@ app.get('/search/neverSignedIn', (request, response) => {
 
 //Search users who registered on the same day that john registered.
 app.get('/search/sameDay/:userId', (request, response) => {
-    const { userId } = request.query; 
+    const { userId } = request.params; 
     const db = dbService.getDbServiceInstance();
     const result = db.searchSameDay(userId);
     result
