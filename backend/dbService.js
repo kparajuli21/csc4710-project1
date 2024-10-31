@@ -48,11 +48,11 @@ class DbService {
     }
 
 
-    async registerUser(username, password, age, salary) {
+    async registerUser(username, password, age, firstname, lastname, salary) {
         try {
         const response = await new Promise((resolve, reject) => {
-            const query = "INSERT INTO users (username, password, age, salary, registerday) VALUES (?, ?, ?, ?, CURDATE())";
-            connection.query(query, [username, password, age, salary], (err, result) => {
+            const query = "INSERT INTO users (username, password, age, firstname, lastname, salary, registerday) VALUES (?, ?, ?, ?, ?,?, CURDATE())";
+            connection.query(query, [username, password, age, firstname, lastname, salary], (err, result) => {
                 if (err) reject(new Error(err.message));
                 else resolve({ id: result.insertId });
             });
