@@ -164,6 +164,8 @@ class DbService {
         try {
             const getDate = await new Promise((resolve, reject) => {
                 const query = "SELECT registerday FROM users WHERE userid =  ?";
+                console.log("user:")
+                console.log(userid)
                 connection.query(query, [userid], (err, results) => {
                     if (err) reject(new Error(err.message));
                     else if (results.length == 0) reject(new Error("User not found"));
@@ -204,30 +206,30 @@ class DbService {
     }
     //Search users who registered on the same day that john registered.
     async searchSameDay(userid) {
-        try {
-            const getDate = await new Promise((resolve, reject) => {
-                const query = "SELECT registerday FROM users WHERE userid =  ?";
-                connection.query(query, [userid], (err, results) => {
-                    if (err) reject(new Error(err.message));
-                    else if (results.length == 0) reject(new Error("User not found"));
-                    else resolve(results);
-                });
+    try {
+        const getDate = await new Promise((resolve, reject) => {
+            const query = "SELECT registerday FROM users WHERE userid =  ?";
+            connection.query(query, [userid], (err, results) => {
+                if (err) reject(new Error(err.message));
+                else if (results.length == 0) reject(new Error("User not found"));
+                else resolve(results);
             });
-            const date = getDate[0].registerday;
+        });
+        const date = getDate[0].registerday;
 
-            const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM users WHERE registerday = ?";
-                connection.query(query, [date], (err, results) => {
-                    if (err) reject(new Error(err.message));
-                    else resolve(results);
-                });
+        const response = await new Promise((resolve, reject) => {
+            const query = "SELECT * FROM users WHERE registerday = ?";
+            connection.query(query, [date], (err, results) => {
+                if (err) reject(new Error(err.message));
+                else resolve(results);
             });
-            return response;
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
+        });
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
     }
+}
 
     //Return the users who registered today;
     async searchToday() {

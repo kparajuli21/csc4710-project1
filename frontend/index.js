@@ -108,7 +108,7 @@ function search(type) {
 
         case 'afterUser':
             const afterUserId = document.querySelector('#search-after-user').value;
-            url += `AfterUser?afterUserId=${afterUserId}`;
+            url += `AfterUser/${afterUserId}`;
             break;
 
         case 'neverSignedIn':
@@ -139,9 +139,9 @@ function loadHTMLTable(data) {
         return;
     }
 
-    data.forEach(({ id, username, age, salary, registerday, last_signin }) => {
+    data.forEach(({ userid, username, age, salary, registerday, last_signin }) => {
         tableHtml += `<tr>
-            <td>${id}</td>
+            <td>${userid}</td>
             <td>${username}</td>
             <td>${age}</td>
             <td>${salary}</td>
