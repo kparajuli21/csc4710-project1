@@ -19,6 +19,18 @@ app.post('/register', (request, response) => {
           .catch(err => response.status(500).json({ success: false, error: err.message }));
 });
 
+app.get('/getAll', (request, response) => {
+
+    const db = dbService.getDbServiceInstance();
+
+
+    const result = db.getAllData(); // call a DB function
+
+    result
+        .then(data => response.json({ data: data }))
+        .catch(err => console.log(err));
+});
+
 // User sign-in
 app.post('/signin', (request, response) => {
     const { username, password } = request.body;
