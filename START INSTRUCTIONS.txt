@@ -1,6 +1,7 @@
-change directory: cd C:\xampp\htdocs\csc4710-project1
+cd C:\xampp\htdocs
+git clone https://github.com/kparajuli21/csc4710-project1.git
 
-
+change directory: cd C:\xampp\htdocs\csc4710-project1\backend
 
 rename dotenv file: ren 'FILE NAME AND EXTENSION HERE' .env
 		    ren .env.txt .env
