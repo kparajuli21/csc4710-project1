@@ -5,6 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const registerBtn = document.querySelector('#register-btn');
+const signInBtn = document.querySelector('#signin-btn');
+const searchSection = document.getElementById('search-functions');
+const userTable = document.getElementById('user-table');
+
+function showSearchSection() {
+    searchSection.hidden = false;
+}
+function showUserTable() {
+    userTable.hidden = false;
+}
+
 registerBtn.addEventListener('click', () => {
     const firstname = document.querySelector('#register-firstname').value;
     const lastname = document.querySelector('#register-lastname').value;
@@ -18,11 +29,16 @@ registerBtn.addEventListener('click', () => {
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ firstname, lastname, username, password, age, salary })
     })
-    .then(response => response.json())
-    .then(data => alert('User Registered!'));
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('User Registered!');
+                showSearchSection();
+                showUserTable()
+            }
+        });
 });
 
-const signInBtn = document.querySelector('#signin-btn');
 signInBtn.addEventListener('click', () => {
     const username = document.querySelector('#signin-username').value;
     const password = document.querySelector('#signin-password').value;
@@ -32,8 +48,16 @@ signInBtn.addEventListener('click', () => {
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify({ username, password })
     })
-    .then(response => response.json())
-    .then(data => data.success ? alert('User Signed In Successfully!') : alert('Sign-In Failed!'));
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('User Signed In Successfully!');
+                showSearchSection();
+                showUserTable()
+            } else {
+                alert('Sign-In Failed!');
+            }
+        });
 });
 
 const searchBtns = {
@@ -83,7 +107,7 @@ function search(type) {
             break;
 
         case 'afterUser':
-            const afterUserId = document.querySelector('#search-after-userid').value;
+            const afterUserId = document.querySelector('#search-after-user').value;
             url += `AfterUser?afterUserId=${afterUserId}`;
             break;
 
@@ -92,7 +116,7 @@ function search(type) {
             break;
 
         case 'sameDay':
-            const sameDayUserId = document.querySelector('#search-same-day-userid').value;
+            const sameDayUserId = document.querySelector('#search-same-day-user').value;
             url += `sameDay/${sameDayUserId}`;
             break;
 
