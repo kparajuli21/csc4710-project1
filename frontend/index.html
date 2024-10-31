@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,25 +7,30 @@
 </head>
 <body>
   <main>
-    <section id="registration-signin">
-      <h2>User Registration</h2>
-      <label>Username:</label>
-      <input type="text" id="register-username">
-      <label>Password:</label>
-      <input type="password" id="register-password">
-      <label>Age:</label>
-      <input type="number" id="register-age">
-      <label>Salary:</label>
-      <input type="number" id="register-salary">
-      <button id="register-btn">Register</button>
+      <section id="registration-signin">
+          <h2>User Registration</h2>
 
-      <h2>User Sign-In</h2>
-      <label>Username:</label>
-      <input type="text" id="signin-username">
-      <label>Password:</label>
-      <input type="password" id="signin-password">
-      <button id="signin-btn">Sign In</button>
-    </section>
+          <label>Name:</label>
+          <input placeholder="First Name" id="register-firstname">
+          <input placeholder="Last Name" id="register-lastname">
+
+          <label>Username:</label>
+          <input type="text" id="register-username">
+          <label>Password:</label>
+          <input type="password" id="register-password">
+          <label>Age:</label>
+          <input type="number" id="register-age">
+          <label>Salary:</label>
+          <input type="number" id="register-salary">
+          <button id="register-btn">Register</button>
+
+          <h2>User Sign-In</h2>
+          <label>Username:</label>
+          <input type="text" id="signin-username">
+          <label>Password:</label>
+          <input type="password" id="signin-password">
+          <button id="signin-btn">Sign In</button>
+      </section>
 
     <section id="search-functions">
       <h2>Search Users</h2>
@@ -50,11 +54,11 @@
         <button id="search-age-btn">Search by Age Range</button>
       </div>
       <div>
-        <input placeholder="Enter User ID" id="search-after-user">
-        <button id="search-after-btn">Search Registered After User</button>
+          <input placeholder="Enter User ID" id="search-after-user">
+          <button id="search-after-btn">Search Registered After User</button>
+          <button id="search-same-day-btn">Search Registered on Same Day</button>
       </div>
       <button id="search-never-signedin-btn">Search Users Never Signed In</button>
-      <button id="search-same-day-btn">Search Registered on Same Day</button>
       <button id="search-today-btn">Search Registered Today</button>
     </section>
 
