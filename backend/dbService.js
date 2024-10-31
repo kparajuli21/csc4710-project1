@@ -98,8 +98,140 @@ class DbService {
         }
     }
 
-    // Implement other methods for additional search functionalities
+    // search users by userid
+    async searchByID(userid) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM users WHERE userid = ?";
+                connection.query(query, [userid], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    else resolve(results);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+    //search all users whose salary is between X and Y
+    async searchBySalary(x, y) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM users WHERE salary > ? AND salary < ?";
+                connection.query(query, [x,y], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    else resolve(results);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+    //Search all users whose ages are between X and Y.
+    async searchByAge(x, y) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM users WHERE age > ? AND age < ?";
+                connection.query(query, [x, y], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    else resolve(results);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+    //Search users who registered after john registered, where john is the userid.
+    async searchAfterUser(userid) {
+        try {
+            const getDate = await new Promise((resolve, reject) => {
+                const query = "SELECT registerday FROM users WHERE userid =  ?";
+                connection.query(query, [userid], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    else if (results.length == 0) reject(new Error("User not found"));
+                    else resolve(results);
+                }); 
+            });
+            const date = getDate[0].registerday;
 
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM users WHERE registerday > ?";
+                connection.query(query, [date], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    else resolve(results);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    //search users who never signed in.
+    async searchNeverSignedIn() {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM users WHERE signintime is NULL";
+                connection.query(query, (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    else resolve(results);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+    //Search users who registered on the same day that john registered.
+    async searchSameDay(userid) {
+        try {
+            const getDate = await new Promise((resolve, reject) => {
+                const query = "SELECT registerday FROM users WHERE userid =  ?";
+                connection.query(query, [userid], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    else if (results.length == 0) reject(new Error("User not found"));
+                    else resolve(results);
+                });
+            });
+            const date = getDate[0].registerday;
+
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM users WHERE registerday = ?";
+                connection.query(query, [date], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    else resolve(results);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    //Return the users who registered today;
+    async searchToday() {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM users WHERE registerday = CURDATE();";
+                connection.query(query, (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    else resolve(results);
+                });
+            });
+            return response;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = DbService;
