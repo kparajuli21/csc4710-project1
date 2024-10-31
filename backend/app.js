@@ -12,9 +12,10 @@ app.use(express.urlencoded({ extended: false }));
 
 // Register a new user
 app.post('/register', (request, response) => {
-    const { username, password, age, salary } = request.body;
+    const { username, password, age, firstname, lastname, salary } = request.body;
+    const userid = firstname;
     const db = dbService.getDbServiceInstance();
-    const result = db.registerUser(username, password, age, salary);
+    const result = db.registerUser(username, password, userid, age, firstname, lastname, salary);
     result.then(data => response.json({ success: true, id: data.id }))
           .catch(err => response.status(500).json({ success: false, error: err.message }));
 });
@@ -37,8 +38,8 @@ app.post('/signin', (request, response) => {
 });
 
 // Search by name
-app.get('/search/ByName', (request, response) => {
-    const { firstname, lastname } = request.query;
+app.get('/search/ByName/:firstname/:lastname', (request, response) => {
+    const { firstname, lastname } = request.params;
     const db = dbService.getDbServiceInstance();
     const result = db.searchByName(firstname, lastname);
     result
@@ -47,8 +48,8 @@ app.get('/search/ByName', (request, response) => {
 });
 
 //search by userid
-app.get('/search/ByUserId', (request, response) => {
-    const { userId } = request.query; // Changed to use query params
+app.get('/search/ByUserId/:userId', (request, response) => {
+    const { userId } = request.params; 
     const db = dbService.getDbServiceInstance();
     const result = db.searchByID(userId);
     result
@@ -57,8 +58,8 @@ app.get('/search/ByUserId', (request, response) => {
 });
 
   //search all users whose salary is between X and Y
-app.get('/search/BySalary', (request, response) => {
-    const { minSalary, maxSalary } = request.query; // Changed to use query params
+app.get('/search/BySalary/:minSalary/:maxSalary', (request, response) => {
+    const { minSalary, maxSalary } = request.params; 
     const db = dbService.getDbServiceInstance();
     const result = db.searchBySalary(parseInt(minSalary), parseInt(maxSalary));
     result
@@ -67,8 +68,8 @@ app.get('/search/BySalary', (request, response) => {
 });
 
 //Search all users whose ages are between X and Y.
-app.get('/search/ByAge', (request, response) => {
-    const { minAge, maxAge } = request.query; // Changed to use query params
+app.get('/search/ByAge/:minAge/:maxAge', (request, response) => {
+    const { minAge, maxAge } = request.params; 
     const db = dbService.getDbServiceInstance();
     const result = db.searchByAge(parseInt(minAge), parseInt(maxAge));
     result
@@ -78,9 +79,9 @@ app.get('/search/ByAge', (request, response) => {
 
 //Search users who registered after john registered, where john is the userid.
 app.get('/search/AfterUser', (request, response) => {
-    const { afterUserId } = request.query; // Changed to use query params
+    const { afterUserId } = request.params; 
     const db = dbService.getDbServiceInstance();
-    const result = db.searchByUser(afterUserId);
+    const result = db.searchAfterUser(afterUserId);
     result
         .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
@@ -89,15 +90,15 @@ app.get('/search/AfterUser', (request, response) => {
 //search users who never signed in.
 app.get('/search/neverSignedIn', (request, response) => {
     const db = dbService.getDbServiceInstance();
-    const result = db.searchNeverSignedIn(); // No params needed
+    const result = db.searchNeverSignedIn(); 
     result
         .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
 });
 
 //Search users who registered on the same day that john registered.
-app.get('/search/sameDay', (request, response) => {
-    const { userId } = request.query; // Changed to use query params
+app.get('/search/sameDay/:userId', (request, response) => {
+    const { userId } = request.params; 
     const db = dbService.getDbServiceInstance();
     const result = db.searchSameDay(userId);
     result
@@ -108,7 +109,7 @@ app.get('/search/sameDay', (request, response) => {
 //Return the users who registered today;
 app.get('/search/today', (request, response) => {
     const db = dbService.getDbServiceInstance();
-    const result = db.searchToday(); // No params needed
+    const result = db.searchToday(); 
     result
         .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
