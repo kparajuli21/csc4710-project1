@@ -78,10 +78,10 @@ app.get('/search/ByAge/:minAge/:maxAge', (request, response) => {
 });
 
 //Search users who registered after john registered, where john is the userid.
-app.get('/search/AfterUser', (request, response) => {
-    const { afterUserId } = request.params; 
+app.get('/search/AfterUser/:userid', (request, response) => {
+    const { userid } = request.params; 
     const db = dbService.getDbServiceInstance();
-    const result = db.searchAfterUser(afterUserId);
+    const result = db.searchAfterUser(userid);
     result
         .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
@@ -97,10 +97,12 @@ app.get('/search/neverSignedIn', (request, response) => {
 });
 
 //Search users who registered on the same day that john registered.
-app.get('/search/sameDay/:userId', (request, response) => {
-    const { userId } = request.params; 
+app.get('/search/sameDay/:userid', (request, response) => {
+    const { userid } = request.params;
+    console.log("user:")
+    console.log(userid)
     const db = dbService.getDbServiceInstance();
-    const result = db.searchSameDay(userId);
+    const result = db.searchSameDay(userid);
     result
         .then(data => response.json({ data: data }))
         .catch(err => response.status(500).json({ error: err.message }));
