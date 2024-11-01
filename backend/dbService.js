@@ -235,7 +235,7 @@ class DbService {
     async searchToday() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM users WHERE registerday = CURDATE();";
+                const query = "SELECT * FROM users WHERE registerday = CURDATE()";
                 connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
                     else resolve(results);

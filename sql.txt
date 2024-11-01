@@ -1,0 +1,25 @@
+INSERT INTO users (username, password, userid, age, firstname, lastname, salary, registerday) VALUES (?, ?, ?, ?, ?, ?,?, CURDATE())
+
+SELECT * FROM users WHERE username = ?
+
+UPDATE users SET signintime = NOW() WHERE userid = ?
+
+SELECT * FROM users WHERE firstname = ? AND lastname = ?
+
+SELECT * FROM users WHERE userid = ?
+
+SELECT * FROM users WHERE salary > ? AND salary < ?
+
+SELECT * FROM users WHERE age > ? AND age < ?
+
+SELECT registerday FROM users WHERE userid =  ?
+
+SELECT * FROM users WHERE registerday > ?
+
+SELECT * FROM users WHERE signintime is NULL
+
+SELECT registerday FROM users WHERE userid =  ?"
+
+SELECT * FROM users WHERE registerday = ?
+
+SELECT * FROM users WHERE registerday = CURDATE()
