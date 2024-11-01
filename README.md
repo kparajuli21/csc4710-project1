@@ -1,4 +1,5 @@
-http://localhost/csc4710-project1/Frontend/index.html
+frontend link: http://localhost/csc4710-project1/Frontend/index.html
+video link: https://www.canva.com/design/DAGVGt1NcMA/f0mVIeg92fTnY0Mhkm-7Dg/edit?utm_content=DAGVGt1NcMA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 # csc4710-project1
 Project description
