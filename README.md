@@ -23,12 +23,13 @@ Please implement the following interface and functoinalty:
 
 # How to run code:
 1. open XAMPP and start the Apache and MYSQL
-2. open phpMyAdmin and create a database named web_app
+2. open phpMyAdmin and create a database named users
 3. run this code in the SQL to create the user tables
    
-      CREATE TABLE Users(
+      CREATE TABLE users(
       username VARCHAR(50) primary key,
       password VARCHAR(50),
+      userid VARCHAR(20),
       firstname VARCHAR(50),
       lastname VARCHAR(50),
       salary FLOAT,
